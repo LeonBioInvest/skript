@@ -1,0 +1,102 @@
+import { ProcessedChunk, RenderedToken } from './types';
+
+const GAP_PROB = 0.28;
+const PROTECTED_TOKENS = new Set(['->', '😁']);
+
+type RawToken =
+  | { type: 'bold' | 'italic'; value: string }
+  | { type: 'space' | 'punct' | 'word'; value: string };
+
+function tokenizeLineRaw(line: string): RawToken[] {
+  const tokens: RawToken[] = [];
+  const re = /\*\*([^*]+)\*\*|\*([^*]+)\*|(\s+)|([^\s]+)/g;
+  let m: RegExpExecArray | null;
+
+  while ((m = re.exec(line)) !== null) {
+    if (m[1] !== undefined) {
+      tokens.push({ type: 'bold', value: m[1] });
+    } else if (m[2] !== undefined) {
+      tokens.push({ type: 'italic', value: m[2] });
+    } else if (m[3] !== undefined) {
+      tokens.push({ type: 'space', value: m[3] });
+    } else {
+      const chunk = m[4];
+      const LEAD  = /^([(\[„"'"']+)/;
+      const TRAIL = /([.,!?)\]"'"':;\/]+)$/;
+
+      let lead = '', core = chunk, trail = '';
+      const lm = LEAD.exec(core);
+      if (lm) { lead = lm[1]; core = core.slice(lead.length); }
+      const tm = TRAIL.exec(core);
+      if (tm) { trail = tm[1]; core = core.slice(0, core.length - trail.length); }
+
+      if (lead) tokens.push({ type: 'punct', value: lead });
+      if (core) tokens.push({ type: 'word',  value: core });
+      if (trail) tokens.push({ type: 'punct', value: trail });
+    }
+  }
+  return tokens;
+}
+
+export function stripMarkdown(text: string): string {
+  return text
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/\*([^*]+)\*/g, '$1');
+}
+
+export function buildChunks(raw: string): string[] {
+  return raw.split(/-Umbruch-/i).map(p => p.trim()).filter(p => p.length > 0);
+}
+
+export function processChunk(chunkText: string): ProcessedChunk {
+  const lines = chunkText.split('\n');
+  let gapIdx = 0;
+  const processedLines: RenderedToken[][] = [];
+
+  for (const line of lines) {
+    const rawTokens = tokenizeLineRaw(line);
+    const rendered: RenderedToken[] = [];
+    const context = stripMarkdown(line).slice(0, 50);
+
+    for (const tok of rawTokens) {
+      if (tok.type === 'bold') {
+        rendered.push({ kind: 'text', value: tok.value, style: 'bold' });
+      } else if (tok.type === 'italic') {
+        rendered.push({ kind: 'text', value: tok.value, style: 'italic' });
+      } else if (tok.type === 'space' || tok.type === 'punct') {
+        rendered.push({ kind: 'text', value: tok.value, style: 'normal' });
+      } else {
+        const isProtected = PROTECTED_TOKENS.has(tok.value);
+        if (!isProtected && Math.random() < GAP_PROB) {
+          rendered.push({ kind: 'gap', answer: tok.value, context, gapIdx: gapIdx++ });
+        } else {
+          rendered.push({ kind: 'text', value: tok.value, style: 'normal' });
+        }
+      }
+    }
+    processedLines.push(rendered);
+  }
+
+  return {
+    lines: processedLines,
+    gapCount: gapIdx,
+    rawText: stripMarkdown(chunkText),
+  };
+}
+
+export function scorePassage(given: string, answer: string) {
+  const normalize = (s: string) => s.trim().replace(/\s+/g, ' ').toLowerCase();
+  const givenWords  = normalize(given).split(' ').filter(Boolean);
+  const answerWords = normalize(answer).split(' ').filter(Boolean);
+
+  let correctWords = 0;
+  const usedIdx = new Set<number>();
+  givenWords.forEach(w => {
+    const found = answerWords.findIndex((a, i) => !usedIdx.has(i) && a === w);
+    if (found !== -1) { correctWords++; usedIdx.add(found); }
+  });
+
+  const total = answerWords.length;
+  const score = total > 0 ? Math.round((correctWords / total) * 100) : 0;
+  return { correct: correctWords, wrong: total - correctWords, score, total };
+}
