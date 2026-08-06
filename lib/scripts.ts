@@ -136,8 +136,10 @@ Wir freuen uns auf dich *(Kunde)* und ich wünsche dir eine schöne Zeit bis dah
       'Schon andere Investments?',
       'Wichtig bei zukünftigen veganen / nachhaltigen Investments?',
       'Rate + Einmalzahlung',
-      'Leitfrage',
+      'Zielfrage',
       'Beruf',
+      'Investmentstart',
+      'Besonderes Modell / Einmalhonorar',
       'Terminpitch',
       'Entscheiderfrage',
       'Terminfindung',
@@ -203,7 +205,31 @@ Wenn du nach einigen Jahren mehrere 100.000 € nachhaltig und vegan angespart h
 **Was möchtest du dir mit dem Geld erfüllen und bewirken?**
 -Umbruch-
 Was machst du eigentlich beruflich, wenn ich fragen darf?
+-Umbruch-
+Eine Sache ist mir noch wichtig, damit wir uns im nächsten Gespräch voll auf dich konzentrieren können:
+**Wann möchtest du ungefähr mit deinem Investment starten, wenn sich danach alles stimmig für dich anfühlt?**
+-Umbruch-
+Gut, dann weiß ich Bescheid.
 
+Ansonsten gibt es bei uns noch ein besonderes Modell, das uns von anderen Anbietern unterscheidet: Du hast dabei die Möglichkeit, jegliche ETFs und Fonds zu wählen, bist maximal flexibel und kannst es komplett nachhaltig und veganfreundlich gestalten.
+
+Anstatt hohe Steuern in Depots oder laufende Kosten in einer privaten Rentenversicherung zu zahlen, kannst du, wenn alles stimmig für dich ist, Einmalig Geld am Anfang zahlen, damit du innerhalb von 15 Jahre, bei Gleicher Entwicklung faktisch 50.000 € mehr herausbekommt. Daher interessiert mich deine Meinung dazu, wenn du vorab an uns 3-4 tausend € zahlst ->
+
+Einmalhonorar möglich – denn die meisten unsere Kunden nehmen das einfach aus den bisherigen Investments oder angesparten Geld, haben es einmalig gezahlt und bekommen dadurch mindestens 50.000 € mehr Geld raus.
+
+**Wie interessant findest du das?**
+
+*Macht Sinn/Passt (über 25 %):*
+Okay super, danke für deine Offenheit in der Hinsicht, macht auch wirklich mehr Sinn.
+
+*Nicht so gut / leichte Ablehnung (25 % oder weniger):*
+Dann danke ich dir sehr für deine Offenheit und es ist an sich kein Problem. Ich frage nur schonmal nach und gebe die Info dann im Nachgang gerne weiter, damit unsere Experten Bescheid wissen.
+
+*Falls nicht zeitnah:*
+Okay, eine Sache ist mir da noch wichtig zu erwähnen:
+Wir haben aktuell mehr Anfragen, als wir annehmen können, und können leider nicht allen helfen. Deshalb arbeiten wir nur mit Menschen zusammen, die auch wirklich loslegen wollen, wenn alles für sie passt. Darum nochmal, einfach um sicherzugehen:
+**Willst du wirklich erst in [XY] starten - oder wäre es für dich auch diesen Monat oder sogar jetzt relevant, wenn du im Gespräch merkst, dass unser Konzept genau zu dir passt?**
+-Umbruch-
 *OPTIONAL falls Bauchgefühl schlecht / Sehr dominant / Will nur Infos / Fast gar nicht offen:*
 Eine Sache ist mir noch sehr wichtig:
 In den meisten Erstgesprächen die wir führen, freuen sich unsere Interessenten sehr darüber endlich vegan / nachhaltig investieren zu können und von uns Hilfe zu erhalten.
